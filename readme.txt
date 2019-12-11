@@ -24,6 +24,10 @@ $ npm start
 # 安裝 serve-index
 $ npm i serve-index
 
+# 在 app.js 放入：
+// app.use('/', indexRouter); // 加入註解
+app.use('/', serveIndex('public', {'icons': true})); // 加入此行
+# 再到 http://localhost:3000 可以看到 public 內的檔案列表
 
 
 
