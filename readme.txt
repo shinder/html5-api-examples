@@ -12,7 +12,21 @@ $ express -e -f ./html5-api-examples
 $ npm i
 
 # 將 package.json 的啟動修改，使之使用 nodemon 啟動（之前必須全域安裝 nodemon）
+  "scripts": {
     "start": "nodemon ./bin/www"
+  },
+
+# 測試啟動伺服器 (http://localhost:3000)
+$ npm start
+
+# Ctrl-C 停止伺服器
+
+# 安裝 serve-index
+$ npm i serve-index
+
+
+
+
 
 
 
