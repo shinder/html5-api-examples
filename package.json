@@ -1,20 +1,16 @@
 {
   "name": "html5-api-examples",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shinder/html5-api-examples.git"
-  },
-  "keywords": [],
-  "author": "Shinder Lin",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shinder/html5-api-examples/issues"
-  },
-  "homepage": "https://github.com/shinder/html5-api-examples#readme"
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  }
 }
