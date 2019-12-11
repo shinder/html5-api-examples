@@ -29,9 +29,11 @@ $ npm i serve-index
 app.use('/', serveIndex('public', {'icons': true})); // 加入此行
 # 再到 http://localhost:3000 可以看到 public 內的檔案列表
 
-# input 新的 type 屬性
+# input 新的 type 屬性值
 # form-input-type.html
 
+# input 新的屬性
+# form-input-type.html
 
 
 
