@@ -11,5 +11,8 @@ $ express -e -f ./html5-api-examples
 # 安裝 packages
 $ npm i
 
+# 將 package.json 的啟動修改，使之使用 nodemon 啟動（之前必須全域安裝 nodemon）
+    "start": "nodemon ./bin/www"
+
 
 
