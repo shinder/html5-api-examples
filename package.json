@@ -1,0 +1,20 @@
+{
+  "name": "html5-api-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinder/html5-api-examples.git"
+  },
+  "keywords": [],
+  "author": "Shinder Lin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shinder/html5-api-examples/issues"
+  },
+  "homepage": "https://github.com/shinder/html5-api-examples#readme"
+}
