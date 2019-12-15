@@ -34,7 +34,6 @@
 		let file, reader;
 		for(let i=0; i<fileFiled[0].files.length; i++){
 			file = fileFiled[0].files[i];
-			console.log(file);
 			reader = new FileReader();
 			reader.addEventListener('load', readerLoaded);
 			reader.readAsDataURL(file);

@@ -25,13 +25,12 @@
 		fileFiled.click();
 	});
 	const readerLoaded = event=>{
-		container.append(event.target.result)
+		container.append(event.target.result);
 	};
 	fileFiled.on('change', function(event){
 		let file, reader;
 		for(let i=0; i<fileFiled[0].files.length; i++){
 			file = fileFiled[0].files[i];
-			console.log(file);
 			reader = new FileReader();
 			reader.addEventListener('load', readerLoaded);
 			reader.readAsText(file);
