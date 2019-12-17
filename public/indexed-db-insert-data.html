@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+<div id="info"></div>
+<script>
+	const info = document.querySelector('#info');
+	let db;
+	const myData = [
+		{ name: '李小明', email: 'ming@ggg.com', mobile: '0918-111-222', code:[1,2,3] },
+		{ name: '陳小強', email: 'chung@aaa.com', mobile: '0918-333-555' },
+		{ name: '吳小華', email: 'hwa@bbb.com', mobile: '0918-777-888' },
+	];
+
+	const errorHandler = event=>{
+		event.preventDefault(); // 可避免 transaction aborted
+		info.innerHTML += `error: ${event.target.error}<br>`;
+	};
+	const onAddSuccess = event=>{
+		info.innerHTML += `新增完成 ${event.target.result}<br>`;
+	};
+	const dbOpenSuccess = event=>{
+		db = event.target.result;
+		const trans = db.transaction(['addressBook'], 'readwrite');
+		const store = trans.objectStore('addressBook');
+		myData.forEach((item)=>{
+			let req = store.add(item);
+			req.addEventListener('success', onAddSuccess);
+			req.addEventListener('error', errorHandler);
+		});
+	};
+
+	const openDBReq = indexedDB.open('mydb', 1);
+	openDBReq.addEventListener('error', errorHandler);
+	openDBReq.addEventListener('success', dbOpenSuccess);
+</script>
+</body>
+</html>
