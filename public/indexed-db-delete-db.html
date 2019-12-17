@@ -13,11 +13,11 @@
 	const info = document.querySelector('#info');
 
 	const errorHandler = event=>{
-        info.innerHTML += `error: ${event.target.error} <br>`;
+		info.innerHTML += `error: ${event.target.error} <br>`;
 	};
 	const delSuccess = event=>{
-        info.innerHTML += '刪除成功 <br>';
-    };
+		info.innerHTML += '刪除成功 <br>';
+	};
 
 	const dbReq = indexedDB.deleteDatabase('mydb'); // 刪除資料庫
 	dbReq.addEventListener('error', errorHandler);

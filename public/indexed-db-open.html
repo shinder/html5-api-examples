@@ -17,20 +17,20 @@
 		info.innerHTML += `error: ${event.target.error}<br>`;
 	};
 	const dbUpgradeNeeded = event=>{
-        info.innerHTML += `需要升級<br>`;
-        db = event.target.result; // openDBReq.result
+		info.innerHTML += `需要升級<br>`;
+		db = event.target.result; // openDBReq.result
 	};
 	const dbOpenSuccess = event=>{
-        info.innerHTML += `開啟成功<br>`;
+		info.innerHTML += `開啟成功<br>`;
 		db = event.target.result; // openDBReq.result
-        info.innerHTML += `db: ${db.constructor.name}<br>`;
-    };
+		info.innerHTML += `db: ${db.constructor.name}<br>`;
+	};
 
-    const openDBReq = indexedDB.open('mydb', 1);
-    info.innerHTML += `openDBReq: ${openDBReq.constructor.name}<br>`;
-    openDBReq.addEventListener('error', errorHandler);
-    openDBReq.addEventListener('success', dbOpenSuccess);
-    openDBReq.addEventListener('upgradeneeded', dbUpgradeNeeded);
+	const openDBReq = indexedDB.open('mydb', 1);
+	info.innerHTML += `openDBReq: ${openDBReq.constructor.name}<br>`;
+	openDBReq.addEventListener('error', errorHandler);
+	openDBReq.addEventListener('success', dbOpenSuccess);
+	openDBReq.addEventListener('upgradeneeded', dbUpgradeNeeded);
 </script>
 </body>
 </html>
