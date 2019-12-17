@@ -26,6 +26,7 @@
 		});
 		// var myIDBIndex = objectStore.createIndex(indexName, keyPath, objectParameters);
 		store.createIndex('emailIndex', 'email', {unique: true});
+		store.createIndex('ageIndex', 'age', {unique: false});
 		info.innerHTML += `Object store 建立完成<br>`;
 	};
 	const dbOpenSuccess = event=>{
