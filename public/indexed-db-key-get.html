@@ -20,19 +20,13 @@
 		const trans = db.transaction(['addressBook'], 'readonly');
 		const store = trans.objectStore('addressBook');
 
-		// const dbReq = store.openCursor(IDBKeyRange.upperBound(3)); // 使用 primary key
-
-		// 使用 ageIndex < 30
-		// const dbReq = store.index('ageIndex').openCursor(IDBKeyRange.upperBound(30));
-
-		// 使用 emailIndex < 'i'
-		const dbReq = store.index('emailIndex').openCursor(IDBKeyRange.upperBound('i'));
+		//const dbReq = store.get(2); // 使用 primary key
+		//const dbReq = store.index('ageIndex').get(23);
+		const dbReq = store.index('emailIndex').get('chung@aaa.com');
 
 		dbReq.onsuccess = event=>{
-			const result = event.target.result; // IDBCursorWithValue
-			if(!result) return; // 讀到最後沒資料時
-			info.innerHTML += JSON.stringify(result.value) + '<br>';
-			result.continue(); // 讀取下一筆
+			const result = event.target.result; // 資料 Object
+			info.innerHTML += JSON.stringify(result) + '<br>';
 		};
 	};
 	const openDBReq = indexedDB.open('mydb', 1);
