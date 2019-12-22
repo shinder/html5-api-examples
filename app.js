@@ -7,6 +7,7 @@ var serveIndex = require('serve-index');
 const axios = require('axios');
 const zlib = require('zlib');
 const fs = require('fs');
+const stream = require('stream');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -46,7 +47,6 @@ app.get('/bus-loc', (req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text/json; charset=UTF-8',
     });
-
     axios({
         method: 'get',
         url: url,
@@ -60,6 +60,68 @@ app.get('/bus-loc', (req, res) => {
         .catch(error=>{
             console.log(error);
         });
+});
+
+let busDataOutput = null;
+const getBusDataFromService = ()=>{
+    // 台北市交通開放資料： https://taipeicity.github.io/traffic_realtime/
+    // 右上角位置： 國父紀念館站/@25.0413848,121.5553443
+    // 左下角位置： 師大夜市/@25.0247998,121.5271883
+
+    const url = 'https://tcgbusfs.blob.core.windows.net/blobbus/GetBusData.gz';
+    axios({
+        method: 'get',
+        url: url,
+        responseType: 'stream'
+    })
+        .then(response => {
+            // 最好是存到資料庫
+            // const fw = fs.createWriteStream('./busData.json');
+            const ws = new stream.Writable();
+            let dataStr = '';
+            ws._write = (chunk, encoding, callback)=>{
+                dataStr += chunk.toString();
+                callback();
+            };
+            ws.on('finish', ()=>{
+                const json = JSON.parse(dataStr);
+                busDataOutput = [];
+                json.BusInfo.forEach((el) => {
+                    if (el.Longitude > 121.5271883 &&
+                        el.Longitude < 121.5553443 &&
+                        el.Latitude > 25.0247998 &&
+                        el.Latitude < 25.0413848)
+                    {
+                        busDataOutput.push(el);
+                    }
+                });
+                console.log(JSON.stringify(busDataOutput));
+                ws.destroy();
+            });
+            response.data.pipe(zlib.createGunzip()).pipe(ws);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    setTimeout(getBusDataFromService, 60000);
+};
+getBusDataFromService();
+
+app.get('/bus-loc-sse', (req, res) => {
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+    });
+    const doRun = ()=> {
+        if(busDataOutput){
+            res.write(`data: ${JSON.stringify(busDataOutput)}\n\n`);
+        } else {
+            res.write(`data: []\n\n`);
+        }
+        setTimeout(doRun, 60000);
+    };
+    doRun();
 });
 
 app.use('/', serveIndex('public', {'icons': true}));
