@@ -14,16 +14,16 @@
 	const es = new EventSource('/try-sse');
 
 	es.addEventListener('open', function(event) {
-        info.style.backgroundColor = 'orange';
+		info.style.backgroundColor = 'orange';
 		console.log(new Date().toLocaleString(), event);
-    });
-    es.addEventListener('message', function(event) {
-        // console.log('message: ', event);
+	});
+	es.addEventListener('message', function(event) {
+		// console.log('message: ', event);
 		info.innerHTML = event.lastEventId + ': ' + event.data;
-    });
-    es.addEventListener('error', function(event) {
+	});
+	es.addEventListener('error', function(event) {
 		console.log(new Date().toLocaleString(), event);
-    });
+	});
 </script>
 </body>
 </html>
