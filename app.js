@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var serveIndex = require('serve-index');
+const axios = require('axios');
+const zlib = require('zlib');
+const fs = require('fs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -35,6 +38,28 @@ app.get('/try-sse', (req, res) => {
 		res.write('id: ' + id++ + '\n');
 		res.write('data: ' + now.toLocaleString() + '\n\n');
 	}, 2000);
+});
+
+app.get('/bus-loc', (req, res) => {
+    // 台北市交通開放資料： https://taipeicity.github.io/traffic_realtime/
+    const url = 'https://tcgbusfs.blob.core.windows.net/blobbus/GetBusData.gz';
+    res.writeHead(200, {
+        'Content-Type': 'text/json; charset=UTF-8',
+    });
+
+    axios({
+        method: 'get',
+        url: url,
+        responseType: 'stream'
+    })
+        .then(response=>{
+            console.log(`response.data: ${response.data.constructor.name}`);
+            // response.data.pipe(fs.createWriteStream('test1.gz'));
+            response.data.pipe(zlib.createGunzip()).pipe(res);
+        })
+        .catch(error=>{
+            console.log(error);
+        });
 });
 
 app.use('/', serveIndex('public', {'icons': true}));
