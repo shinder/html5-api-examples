@@ -61,7 +61,7 @@ app.get('/bus-loc', (req, res) => {
             console.log(error);
         });
 });
-
+/*
 let busDataOutput = null;
 const getBusDataFromService = ()=>{
     // 台北市交通開放資料： https://taipeicity.github.io/traffic_realtime/
@@ -123,7 +123,7 @@ app.get('/bus-loc-sse', (req, res) => {
     };
     doRun();
 });
-
+*/
 app.use('/', serveIndex('public', {'icons': true}));
 
 // catch 404 and forward to error handler
