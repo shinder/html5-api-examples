@@ -27,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.use('/uploads', require(__dirname + '/routes/ajax-upload'));
+
 app.get('/try-sse', (req, res) => {
 	let id = 30;
 	res.writeHead(200, {
