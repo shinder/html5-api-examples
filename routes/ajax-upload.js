@@ -50,4 +50,13 @@ router.post('/profile', upload.single('avatar'), function(req, res) {
 	});
 	res.json(output);
 });
+
+router.post('/multiple', upload.array('myFiles'), function(req, res) {
+	const output = [];
+	req.files.forEach(file=>{
+		output.push('/img-uploads/' + file.filename);
+	});
+	res.json(output);
+});
+
 module.exports = router;
