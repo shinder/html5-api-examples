@@ -15,7 +15,7 @@
 		xhr.onreadystatechange = function(){
 			console.log(this.readyState, this.status);
 		};
-		xhr.open('GET', '/pending', true); // 同步
+		xhr.open('GET', '/pending', false); // 同步
 		xhr.send();
 		console.log('Hello');
 	};
