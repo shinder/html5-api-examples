@@ -43,6 +43,10 @@ app.get('/try-sse', (req, res) => {
 	}, 2000);
 });
 
+app.get('/pending', (req, res) => {
+});
+
+
 app.get('/bus-loc', (req, res) => {
     // 台北市交通開放資料： https://taipeicity.github.io/traffic_realtime/
     const url = 'https://tcgbusfs.blob.core.windows.net/blobbus/GetBusData.gz';
