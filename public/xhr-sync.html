@@ -12,12 +12,9 @@
 <script>
 	load_btn.onclick = function(){
 		const xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			console.log(this.readyState, this.status);
-		};
 		xhr.open('GET', '/pending', false); // 同步
 		xhr.send();
-		console.log('Hello');
+        load_btn.innerHTML = xhr.responseText;
 	};
 </script>
 

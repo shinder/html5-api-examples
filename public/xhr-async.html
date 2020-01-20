@@ -14,10 +14,12 @@
 		const xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function(){
 			console.log(this.readyState, this.status);
+			if(this.readyState===4 && this.status===200){
+                load_btn.innerHTML = this.responseText;
+			}
 		};
 		xhr.open('GET', '/pending', true); // 非同步
 		xhr.send();
-		console.log('Hello');
 	};
 </script>
 

@@ -44,6 +44,9 @@ app.get('/try-sse', (req, res) => {
 });
 
 app.get('/pending', (req, res) => {
+	setTimeout(()=>{
+		res.send('Hello Shinder!');
+	}, 10000);
 });
 
 
