@@ -4,7 +4,6 @@ self.addEventListener('install', function(event) {
 	event.waitUntil(
 		caches.open(cacheName).then((cache) => {
 			return cache.addAll([
-				'/myApp/',
 				'/myApp/canvas-draw-app.html',
 				'/myApp/manifest.json',
 				'/myApp/images/icons/icon-144x144.png',
