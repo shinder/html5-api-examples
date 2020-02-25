@@ -8,6 +8,7 @@ const axios = require('axios');
 const zlib = require('zlib');
 const fs = require('fs');
 const stream = require('stream');
+const sessionParser = require('./routes/session-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,12 +23,19 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(sessionParser);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/uploads', require(__dirname + '/routes/ajax-upload'));
+
+app.get('/set-sess', (req, res) => {
+	req.session.shin = req.session.shin || 1;
+	req.session.shin++;
+	res.send(req.session.shin.toString());
+});
 
 app.get('/try-sse', (req, res) => {
 	let id = 30;
