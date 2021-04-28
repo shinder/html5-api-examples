@@ -20,9 +20,9 @@
 <button onclick="clearCanvas()">清空重置</button> -
 <button onclick="saveCanvas()">儲存</button>
 <script>
-
+	let count = 0;
 	// {"x1":0,"y1":0,"x2":0,"y2":0,"c":"#","s":5}
-
+	const socket = new WebSocket(`ws://${location.host}`);
 	const startP = {
 		x:0, y:0
 	};
@@ -49,15 +49,18 @@
 	const mMove = event=>{
 		ctx.lineTo(event.offsetX, event.offsetY);
 		ctx.stroke();
-
-		console.log({
+		const sendObj = {
 			x1: startP.x,
 			y1: startP.y,
 			c: pColor.value,
 			s: pSize.value,
 			x2: event.offsetX,
 			y2: event.offsetY,
-		});
+		};
+		console.log(++count, sendObj);
+		if(socket && socket.readyState===WebSocket.OPEN) {
+			socket.send(JSON.stringify(sendObj));
+		}
 		startP.x = event.offsetX;
 		startP.y = event.offsetY;
 	};
