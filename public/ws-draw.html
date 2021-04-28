@@ -23,6 +23,22 @@
 	let count = 0;
 	// {"x1":0,"y1":0,"x2":0,"y2":0,"c":"#","s":5}
 	const socket = new WebSocket(`ws://${location.host}`);
+
+	socket.addEventListener('message', function(event){
+		let dataObj;
+		try{
+			dataObj = JSON.parse(event.data);
+			ctx.beginPath();
+			ctx.strokeStyle = dataObj.c;
+			ctx.lineWidth = dataObj.s;
+			ctx.moveTo(dataObj.x1, dataObj.y1);
+			ctx.lineTo(dataObj.x2, dataObj.y2);
+			ctx.stroke();
+		} catch(ex){
+
+		}
+	});
+
 	const startP = {
 		x:0, y:0
 	};
@@ -37,8 +53,8 @@
 	const mDown = event=>{
 		window.addEventListener('mouseup', mUp);
 		myCanvas.addEventListener('mousemove', mMove);
-		ctx.beginPath();
-		ctx.moveTo(event.offsetX, event.offsetY);
+		// ctx.beginPath();
+		// ctx.moveTo(event.offsetX, event.offsetY);
 		startP.x = event.offsetX;
 		startP.y = event.offsetY;
 	};
@@ -47,8 +63,8 @@
 		myCanvas.removeEventListener('mousemove', mMove);
 	};
 	const mMove = event=>{
-		ctx.lineTo(event.offsetX, event.offsetY);
-		ctx.stroke();
+		// ctx.lineTo(event.offsetX, event.offsetY);
+		// ctx.stroke();
 		const sendObj = {
 			x1: startP.x,
 			y1: startP.y,
