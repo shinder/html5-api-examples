@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .rect {
+        position: absolute;
+        display: flex;
+        width: 200px;
+        height: 200px;
+        border: 1px solid gray;
+        background-color: #c8f2f4;
+      }
+      .ball {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        border: 1px solid gray;
+        line-height: 60px;
+        text-align: center;
+        background-color: #ef5011;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rect" style="left: 300px"></div>
+
+    <script>
+      const rect2 = document.querySelector(".rect");
+
+      rect2.addEventListener("dragenter", (e) => {
+        e.currentTarget.style.backgroundColor = "pink";
+      });
+      rect2.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+      rect2.addEventListener("dragleave", (e) => {
+        e.currentTarget.style.backgroundColor = "#c8f2f4";
+      });
+      rect2.addEventListener("drop", (e) => {
+        e.preventDefault();
+        e.currentTarget.style.backgroundColor = "#c8f2f4";
+        console.log(e.dataTransfer.files);
+      });
+    </script>
+  </body>
+</html>
